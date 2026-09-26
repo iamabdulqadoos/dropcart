@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from sqlalchemy import text
+
+from app.core.database import engine
 
 app = FastAPI(
     title="DropCart API",
@@ -10,4 +13,15 @@ app = FastAPI(
 async def health():
     return {
         "status": "ok"
+    }
+
+
+@app.get("/db-test")
+def database_test():
+    with engine.connect() as connection:
+        result = connection.execute(text("SELECT 1"))
+
+    return {
+        "database": "connected",
+        "result": result.scalar()
     }
