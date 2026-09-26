@@ -7,7 +7,11 @@ app = FastAPI(
     title="DropCart API",
     version="1.0.0",
 )
-
+@app.get("/")
+def root():
+    return {
+        "message": "Welcome to DropCart API"
+    }
 
 @app.get("/health")
 async def health():
