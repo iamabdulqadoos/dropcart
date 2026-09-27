@@ -1,18 +1,7 @@
 services:
 
-  api:
-    build: .
-    container_name: dropcart-api
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
-    depends_on:
-      - postgres
-      - redis
-
   postgres:
-    image: postgres:17
+    image: postgres:16
     container_name: dropcart-postgres
     environment:
       POSTGRES_USER: postgres
@@ -21,23 +10,108 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - dropcart_postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U postgres -d dropcart"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:7
     container_name: dropcart-redis
     ports:
       - "6379:6379"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "redis-cli",
+          "ping"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  payment-gateway:
+    build:
+      context: ../payment-gateway
+    container_name: dropcart-payment-gateway
+    environment:
+      WEBHOOK_SECRET: dropcart-webhook-secret
+      API_WEBHOOK_URL: http://api:8000/webhooks/payment
+    ports:
+      - "9000:9000"
+
+  api:
+    build: .
+    container_name: dropcart-api
+    command:
+      [
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ]
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/dropcart
+      REDIS_URL: redis://redis:6379/0
+      PAYMENT_GATEWAY_URL: http://payment-gateway:9000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   celery:
     build: .
     container_name: dropcart-celery
-    command: celery -A app.workers.celery_app.celery_app worker --loglevel=info --pool=solo
-    env_file:
-      - .env
+    command:
+      [
+        "celery",
+        "-A",
+        "app.workers.celery_app.celery_app",
+        "worker",
+        "--loglevel=info"
+      ]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/dropcart
+      REDIS_URL: redis://redis:6379/0
+      PAYMENT_GATEWAY_URL: http://payment-gateway:9000
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  celery-beat:
+    build: .
+    container_name: dropcart-celery-beat
+    command:
+      [
+        "celery",
+        "-A",
+        "app.workers.celery_app.celery_app",
+        "beat",
+        "--loglevel=info"
+      ]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/dropcart
+      REDIS_URL: redis://redis:6379/0
+      PAYMENT_GATEWAY_URL: http://payment-gateway:9000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 volumes:
-  dropcart_postgres_data:
+  postgres_data:

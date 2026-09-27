@@ -9,9 +9,9 @@ celery_app = Celery(
     backend=settings.REDIS_URL,
     include=[
         "app.workers.order_worker",
+        "app.workers.reservation_worker",
     ],
 )
-
 
 celery_app.conf.update(
     task_serializer="json",
@@ -20,3 +20,9 @@ celery_app.conf.update(
     timezone="UTC",
     enable_utc=True,
 )
+celery_app.conf.beat_schedule = {
+    "expire-reservations-every-10-seconds": {
+        "task": "app.workers.reservation_worker.expire_reservations",
+        "schedule": 10.0,
+    },
+}
