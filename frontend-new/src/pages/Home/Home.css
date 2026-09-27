@@ -1,0 +1,306 @@
+.home-page {
+  min-height: calc(100vh - 73px);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 90px 24px;
+
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.hero-label,
+.section-label {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+
+.hero-content h1 {
+  font-size: 58px;
+  line-height: 1.1;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.hero-content h1 span {
+  color: #2563eb;
+}
+
+.hero-description {
+  max-width: 600px;
+  color: #6b7280;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.primary-button,
+.secondary-button,
+.cta-button {
+  display: inline-block;
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.primary-button {
+  background: #2563eb;
+  color: white;
+}
+
+.primary-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.secondary-button {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.secondary-button:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+
+/* =========================
+   HERO CARD
+========================= */
+
+.hero-card {
+  background: #111827;
+  color: white;
+  padding: 36px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+}
+
+.hero-icon {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #2563eb;
+  border-radius: 16px;
+
+  font-size: 30px;
+  margin-bottom: 24px;
+}
+
+.hero-card h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.hero-card > p {
+  color: #9ca3af;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.hero-card-line {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 14px 0;
+  border-top: 1px solid #374151;
+
+  color: #d1d5db;
+}
+
+.hero-card-line span:last-child {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+
+/* =========================
+   FEATURES
+========================= */
+
+.features-section {
+  background: white;
+  padding: 90px 24px;
+}
+
+.section-heading {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  font-size: 40px;
+  color: #111827;
+  margin-bottom: 14px;
+}
+
+.section-heading > p:last-child {
+  color: #6b7280;
+  font-size: 17px;
+}
+
+.features-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #ffffff;
+
+  transition: 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: #bfdbfe;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.feature-icon {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  color: #111827;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta-section {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+}
+
+.cta-section h2 {
+  color: #111827;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.cta-section p:last-child {
+  color: #6b7280;
+}
+
+.cta-button {
+  background: #2563eb;
+  color: white;
+  white-space: nowrap;
+}
+
+.cta-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .hero-section {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .hero-content h1 {
+    font-size: 48px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-section {
+    margin: 60px 24px;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .hero-section {
+    padding: 60px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .hero-card {
+    padding: 26px;
+  }
+
+  .features-section {
+    padding: 60px 20px;
+  }
+
+  .section-heading h2 {
+    font-size: 32px;
+  }
+
+  .cta-section {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+}
