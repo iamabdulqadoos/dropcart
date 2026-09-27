@@ -16,10 +16,7 @@ async def checkout_cart(
 ):
     async with db.begin():
 
-        # --------------------------------
-        # 1. Get user's cart
-        # --------------------------------
-
+        # Get user's cart
         result = await db.execute(
             select(Cart).where(
                 Cart.user_id == user_id
@@ -29,43 +26,26 @@ async def checkout_cart(
         cart = result.scalar_one_or_none()
 
         if not cart:
-            raise ValueError(
-                "Cart not found"
-            )
+            raise ValueError("Cart not found")
 
-        # --------------------------------
-        # 2. Get cart items
-        # --------------------------------
-
+        # Get cart items in a consistent order
         result = await db.execute(
             select(CartItem)
             .where(
                 CartItem.cart_id == cart.id
             )
-            .order_by(
-                CartItem.product_id
-            )
+            .order_by(CartItem.product_id)
         )
 
         cart_items = result.scalars().all()
 
         if not cart_items:
-            raise ValueError(
-                "Cart is empty"
-            )
-
-        # --------------------------------
-        # 3. Prepare order calculation
-        # --------------------------------
+            raise ValueError("Cart is empty")
 
         total_amount = Decimal("0")
-
         order_items_data = []
 
-        # --------------------------------
-        # 4. Lock products
-        # --------------------------------
-
+        # Lock products while checking and updating stock
         for cart_item in cart_items:
 
             result = await db.execute(
@@ -83,29 +63,17 @@ async def checkout_cart(
                     f"Product {cart_item.product_id} not found"
                 )
 
-            # --------------------------------
-            # 5. Check stock
-            # --------------------------------
-
+            # Check stock while the product row is locked
             if product.stock < cart_item.quantity:
                 raise ValueError(
-                    f"Not enough stock for "
-                    f"{product.name}"
+                    f"Not enough stock for {product.name}"
                 )
 
-            # --------------------------------
-            # 6. Reduce stock
-            # --------------------------------
-
+            # Reserve stock
             product.stock -= cart_item.quantity
 
-            # --------------------------------
-            # 7. Calculate price
-            # --------------------------------
-
             item_total = (
-                product.price *
-                cart_item.quantity
+                product.price * cart_item.quantity
             )
 
             total_amount += item_total
@@ -118,10 +86,7 @@ async def checkout_cart(
                 }
             )
 
-        # --------------------------------
-        # 8. Create order
-        # --------------------------------
-
+        # Create order
         order = Order(
             user_id=user_id,
             status="pending",
@@ -130,13 +95,9 @@ async def checkout_cart(
 
         db.add(order)
 
-        # Generate order ID
         await db.flush()
 
-        # --------------------------------
-        # 9. Create order items
-        # --------------------------------
-
+        # Create order items
         response_items = []
 
         for item_data in order_items_data:
@@ -161,29 +122,9 @@ async def checkout_cart(
                 }
             )
 
-        # --------------------------------
-        # 10. Clear cart
-        # --------------------------------
-
+        # Clear cart
         for cart_item in cart_items:
             await db.delete(cart_item)
-
-        # --------------------------------
-        # 11. Transaction commits
-        # --------------------------------
-        #
-        # If everything succeeds:
-        #
-        #   stock reduced
-        #   order created
-        #   order items created
-        #   cart cleared
-        #
-        # If anything fails:
-        #
-        #   EVERYTHING rolls back
-        #
-        # --------------------------------
 
     return {
         "id": order.id,
@@ -192,3 +133,91 @@ async def checkout_cart(
         "total_amount": order.total_amount,
         "items": response_items,
     }
+
+
+async def get_order(
+    db: AsyncSession,
+    order_id: int,
+):
+    result = await db.execute(
+        select(Order).where(
+            Order.id == order_id
+        )
+    )
+
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise ValueError("Order not found")
+
+    result = await db.execute(
+        select(OrderItem)
+        .where(
+            OrderItem.order_id == order.id
+        )
+        .order_by(OrderItem.id)
+    )
+
+    order_items = result.scalars().all()
+
+    return {
+        "id": order.id,
+        "user_id": order.user_id,
+        "status": order.status,
+        "total_amount": order.total_amount,
+        "items": [
+            {
+                "id": item.id,
+                "product_id": item.product_id,
+                "quantity": item.quantity,
+                "price": item.price,
+            }
+            for item in order_items
+        ],
+    }
+
+async def get_user_orders(
+    db: AsyncSession,
+    user_id: int,
+):
+    result = await db.execute(
+        select(Order)
+        .where(Order.user_id == user_id)
+        .order_by(Order.id.desc())
+    )
+
+    orders = result.scalars().all()
+
+    response = []
+
+    for order in orders:
+
+        result = await db.execute(
+            select(OrderItem)
+            .where(
+                OrderItem.order_id == order.id
+            )
+            .order_by(OrderItem.id)
+        )
+
+        order_items = result.scalars().all()
+
+        response.append(
+            {
+                "id": order.id,
+                "user_id": order.user_id,
+                "status": order.status,
+                "total_amount": order.total_amount,
+                "items": [
+                    {
+                        "id": item.id,
+                        "product_id": item.product_id,
+                        "quantity": item.quantity,
+                        "price": item.price,
+                    }
+                    for item in order_items
+                ],
+            }
+        )
+
+    return response
