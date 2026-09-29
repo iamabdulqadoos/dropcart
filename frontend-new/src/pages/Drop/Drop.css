@@ -1,0 +1,794 @@
+
+/* ================================
+   Drop Page
+================================ */
+
+.drop-page {
+  min-height: 100vh;
+  padding: 80px 20px;
+  background:
+    radial-gradient(
+      circle at top,
+      #eef2ff 0%,
+      #f8fafc 45%,
+      #f1f5f9 100%
+    );
+}
+
+
+/* ================================
+   Container
+================================ */
+
+.drop-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+
+/* ================================
+   Header
+================================ */
+
+.drop-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.drop-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+
+  background: #e0e7ff;
+  color: #3730a3;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.drop-header h1 {
+  margin: 18px 0 10px;
+
+  color: #0f172a;
+
+  font-size: 46px;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.drop-header p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+/* ================================
+   Main Card
+================================ */
+
+.drop-card {
+  padding: 45px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  border: 1px solid #e2e8f0;
+  border-radius: 26px;
+
+  box-shadow:
+    0 25px 60px rgba(15, 23, 42, 0.08);
+}
+
+
+/* ================================
+   Product
+================================ */
+
+.product-section {
+  text-align: center;
+}
+
+.section-label {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+}
+
+.product-section h2 {
+  margin: 12px 0 8px;
+
+  color: #0f172a;
+
+  font-size: 30px;
+}
+
+.product-description {
+  max-width: 500px;
+
+  margin: 0 auto 18px;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.product-price {
+  color: #172554;
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+
+/* ================================
+   Divider
+================================ */
+
+.drop-divider {
+  height: 1px;
+
+  margin: 35px 0;
+
+  background: #e2e8f0;
+}
+
+
+/* ================================
+   Countdown
+================================ */
+
+.countdown-section {
+  text-align: center;
+}
+
+.countdown {
+  margin-top: 12px;
+
+  color: #0f172a;
+
+  font-size: 52px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-section p {
+  margin-top: 10px;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+
+/* ================================
+   Live Section
+================================ */
+
+.live-section {
+  width: 100%;
+}
+
+.live-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #15803d;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.live-indicator span {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 0 5px rgba(34, 197, 94, 0.12);
+
+  animation: pulse 1.6s infinite;
+}
+
+.sold-out-badge {
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: #fee2e2;
+  color: #b91c1c;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+
+/* ================================
+   Stock
+================================ */
+
+.stock-section {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.stock-number {
+  margin-top: 7px;
+
+  color: #0f172a;
+
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.stock-number span {
+  color: #94a3b8;
+
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.stock-loading {
+  margin-top: 10px;
+
+  color: #94a3b8;
+
+  font-size: 14px;
+}
+
+.reserved-info {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+
+/* ================================
+   Stock Bar
+================================ */
+
+.stock-bar {
+  width: 100%;
+  height: 10px;
+
+  margin-top: 16px;
+
+  overflow: hidden;
+
+  background: #e2e8f0;
+
+  border-radius: 999px;
+}
+
+.stock-progress {
+  height: 100%;
+
+  background: #172554;
+
+  border-radius: inherit;
+
+  transition: width 0.4s ease;
+}
+
+
+/* ================================
+   Reserve Button
+================================ */
+
+.reserve-button,
+.checkout-button,
+.reserve-again-button {
+  width: 100%;
+
+  border: none;
+  border-radius: 14px;
+
+  padding: 17px 20px;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.reserve-button {
+  margin-top: 30px;
+
+  background: #172554;
+  color: white;
+
+  box-shadow:
+    0 10px 25px rgba(23, 37, 84, 0.18);
+}
+
+.reserve-button:hover:not(:disabled) {
+  background: #0f172a;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(15, 23, 42, 0.22);
+}
+
+.reserve-button:disabled {
+  background: #cbd5e1;
+
+  color: #64748b;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+
+/* ================================
+   Reservation Success
+================================ */
+
+.reservation-success {
+  margin-top: 28px;
+
+  padding: 25px;
+
+  background: #f0fdf4;
+
+  border: 1px solid #bbf7d0;
+
+  border-radius: 18px;
+}
+
+.success-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+.success-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background: #16a34a;
+
+  color: white;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.reservation-success h3 {
+  margin: 0 0 5px;
+
+  color: #166534;
+
+  font-size: 18px;
+}
+
+.reservation-success p {
+  margin: 0;
+
+  color: #4b5563;
+
+  font-size: 14px;
+}
+
+
+/* ================================
+   Reservation Timer
+================================ */
+
+.reservation-timer {
+  margin-top: 22px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #bbf7d0;
+}
+
+.reservation-timer span {
+  display: block;
+
+  color: #4b5563;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.reservation-timer strong {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #166534;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.checkout-button {
+  margin-top: 20px;
+
+  background: #166534;
+  color: white;
+}
+
+.checkout-button:hover {
+  background: #14532d;
+
+  transform: translateY(-1px);
+}
+
+
+/* ================================
+   Drop Ended
+================================ */
+
+.ended-section,
+.expired-section {
+  padding: 28px;
+
+  text-align: center;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 18px;
+}
+
+.ended-section h3,
+.expired-section h3 {
+  margin: 15px 0 7px;
+
+  color: #0f172a;
+
+  font-size: 20px;
+}
+
+.ended-section p,
+.expired-section p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.state-icon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: #e2e8f0;
+
+  color: #475569;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.reserve-again-button {
+  margin-top: 20px;
+
+  background: #172554;
+  color: white;
+}
+
+.reserve-again-button:hover {
+  background: #0f172a;
+}
+
+
+/* ================================
+   Error
+================================ */
+
+.inline-error {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 20px;
+
+  padding: 13px 15px;
+
+  border: 1px solid #fecaca;
+
+  border-radius: 12px;
+
+  background: #fef2f2;
+
+  color: #b91c1c;
+
+  font-size: 13px;
+}
+
+.inline-error span {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: #dc2626;
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+/* ================================
+   Information
+================================ */
+
+.drop-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  margin-top: 25px;
+
+  padding: 20px;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 18px;
+
+  backdrop-filter: blur(10px);
+}
+
+.drop-info > div {
+  text-align: center;
+
+  border-right: 1px solid #e2e8f0;
+}
+
+.drop-info > div:last-child {
+  border-right: none;
+}
+
+.drop-info strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 16px;
+}
+
+.drop-info span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+
+/* ================================
+   Loading State
+================================ */
+
+.drop-state {
+  min-height: 65vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+.drop-state h2 {
+  margin: 15px 0 8px;
+
+  color: #0f172a;
+}
+
+.drop-state p {
+  margin: 0;
+
+  font-size: 14px;
+}
+
+.drop-error-state h2 {
+  color: #b91c1c;
+}
+
+.drop-spinner {
+  width: 38px;
+  height: 38px;
+
+  border: 4px solid #e2e8f0;
+
+  border-top-color: #172554;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+
+/* ================================
+   Animations
+================================ */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ================================
+   Responsive
+================================ */
+
+@media (max-width: 700px) {
+  .drop-page {
+    padding: 55px 15px;
+  }
+
+  .drop-header h1 {
+    font-size: 36px;
+  }
+
+  .drop-card {
+    padding: 28px 22px;
+
+    border-radius: 20px;
+  }
+
+  .countdown {
+    font-size: 38px;
+
+    letter-spacing: 1px;
+  }
+
+  .stock-number {
+    font-size: 32px;
+  }
+
+  .drop-info {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .drop-info > div {
+    padding-bottom: 16px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .drop-info > div:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .drop-page {
+    padding: 40px 12px;
+  }
+
+  .drop-header h1 {
+    font-size: 32px;
+  }
+
+  .drop-card {
+    padding: 24px 18px;
+  }
+
+  .countdown {
+    font-size: 30px;
+  }
+
+  .stock-section {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .live-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 12px;
+  }
+}

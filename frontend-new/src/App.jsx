@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 
+import Drop from "./pages/Drop/Drop";
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/drops/:dropId" element={<Drop />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
